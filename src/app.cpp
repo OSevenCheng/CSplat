@@ -27,6 +27,7 @@ namespace splat {
 
 App::App(char* ply_path) {
     init_window();
+    std::cout << ply_path<<std::endl;
     load_data(ply_path);
     load_shaders();
     std::cout << "ok\n";
@@ -148,12 +149,12 @@ void App::load_data(char* ply_path) {
         };
         glm::mat4 scale_mat = glm::scale(glm::mat4(1.0f), scale);
 
-        glm::quat rot = {
+        glm::quat rot = glm::normalize(glm::quat(
             filedata[offset + 10],
             filedata[offset + 11],
             filedata[offset + 12],
-            filedata[offset + 13],
-        };
+            filedata[offset + 13]
+        ));
         glm::mat4 rot_mat = glm::mat4(glm::mat3(rot));
 
         auto rot_scale = rot_mat * scale_mat;
@@ -201,7 +202,10 @@ void App::load_data(char* ply_path) {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, index_ssbo);
 
     // Create vertex buffer with a single screen-space quad.
-    std::vector<float> verts = {-2, -2, 2, -2, 2, 2, -2, 2};
+    std::vector<float> verts = {-2, -2, 
+        2, -2, 
+        2, 2, 
+        -2, 2};
     glGenBuffers(1, &vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
     glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(float), verts.data(), GL_STATIC_DRAW);
@@ -304,9 +308,9 @@ void App::run() {
 
 void App::process_inputs() {
     float delta_speed;
-    if (glfwGetKey(win, GLFW_KEY_C) == GLFW_PRESS) {
+    //if (glfwGetKey(win, GLFW_KEY_C) == GLFW_PRESS) {
         sort();
-    }
+    //}
     delta_speed = speed * time_delta;
     if (glfwGetKey(win, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         delta_speed *= 5.0f;
@@ -354,6 +358,13 @@ void App::process_inputs() {
     }
     if (glfwGetKey(win, GLFW_KEY_P) == GLFW_PRESS) {
         shader = point_shader;
+    }
+    if (glfwGetKey(win, GLFW_KEY_F) == GLFW_PRESS) {
+        //opengl 线框模式
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    if (glfwGetKey(win, GLFW_KEY_F) == GLFW_RELEASE) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 }
 

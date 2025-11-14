@@ -11,7 +11,7 @@ glm::mat4 Camera::get_view() const {
 
 glm::mat4 Camera::get_proj() const {
     float aspect = (float)width / (float)height;
-    return glm::perspective(glm::radians(90.0f), aspect, 0.2f, 1000.0f);
+    return glm::perspective(glm::radians(60.0f), aspect, 0.2f, 1000.0f);
 }
 
 glm::mat4 Camera::get_rot() const {
@@ -49,11 +49,11 @@ void Camera::update_rot(double mouse_x_new, double mouse_y_new) {
         double dx = mouse_x_new - mouse_x_old;
         double dy = mouse_y_new - mouse_y_old;
 
-        double f = -0.005f;
+        double f = -0.001f;
 
         euler_angles.y += f * dx;
         euler_angles.x += f * dy;
-        euler_angles.x = glm::clamp(euler_angles.x, glm::radians(-90.0f), glm::radians(90.0f));
+        euler_angles.x = glm::clamp(euler_angles.x, glm::radians(-80.0f), glm::radians(80.0f));
     }
 
     mouse_x = mouse_x_new;

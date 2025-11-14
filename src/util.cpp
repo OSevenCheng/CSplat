@@ -18,10 +18,10 @@ std::string util::read_file(std::string const& path_full) {
     return buf.str();
 }
 
-uint util::load_shader(std::string const& path, GLenum type) {
+GLuint util::load_shader(std::string const& path, GLenum type) {
     std::string shader_source_str = util::read_file(path);
     const char* shader_source = shader_source_str.c_str();
-    uint shader = glCreateShader(type);
+    GLuint shader = glCreateShader(type);
     glShaderSource(shader, 1, &shader_source, NULL);
     glCompileShader(shader);
 
@@ -37,8 +37,8 @@ uint util::load_shader(std::string const& path, GLenum type) {
     return shader;
 }
 
-uint util::link_shaders(std::vector<uint> const& shaders) {
-    uint prog = glCreateProgram();
+GLuint util::link_shaders(std::vector<GLuint> const& shaders) {
+    GLuint prog = glCreateProgram();
     for (auto const& shader : shaders) {
         glAttachShader(prog, shader);
     }

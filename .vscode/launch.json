@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run splat (MSYS2 UCRT64 + gdb)",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/src/eq-splat.exe",
+        "args": ["F:/gsData/AT150/at150.ply"],
+        "cwd": "${workspaceFolder}/build",
+        "environment": [
+          { "name": "PATH", "value": "C:/msys64/ucrt64/bin;${env:PATH}" }
+        ],
+        "MIMode": "gdb",
+        "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+        "externalConsole": false,
+        "stopAtEntry": false
+      }
+    ]
+  }

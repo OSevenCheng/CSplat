@@ -84,8 +84,13 @@ void main() {
     );
 
     // Calculate 2D covariance matrix
-    mat3 t = jacobian * mat3(view);
-    mat3 sigma_prime = t * mat3(gaussian.sigma) * transpose(t);
+   // mat3 t = jacobian * mat3(view);
+    //mat3 sigma_prime = t * mat3(gaussian.sigma) * transpose(t);
+
+    mat3 W = transpose(mat3(view));
+    mat3 T = W * jacobian;
+    mat3 sigma_prime = transpose(T) * mat3(gaussian.sigma) * T;
+
     mat2 sigma2 = mat2(sigma_prime);  // take upper left
 
     // Get basis vectors of the splatted 2D Gaussian

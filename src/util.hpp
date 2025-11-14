@@ -8,12 +8,12 @@ namespace splat::util {
 
 std::string read_file(std::string const& path);
 
-uint link_shaders(std::vector<uint> const& shaders);
-uint load_shader(std::string const& path, GLenum type);
+GLuint link_shaders(std::vector<GLuint> const& shaders);
+GLuint load_shader(std::string const& path, GLenum type);
 
 void cleanup();
 
-static std::vector<uint> shaders{};
+static std::vector<GLuint> shaders{};
 
 };  // namespace splat::util
 
