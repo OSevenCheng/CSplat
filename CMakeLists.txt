@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.28.1 FATAL_ERROR)
 project(Splat)
 
 find_package(glfw3 REQUIRED)
